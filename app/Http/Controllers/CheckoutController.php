@@ -107,24 +107,24 @@ class CheckoutController extends Controller
 		$transaction = Transaction::findOrFail($order_id);
 
 		// Handle notification status
-		if($status == 'capture') {
-			if($type == 'credit_card') {
-				if($fraud == 'challenge') {
+		if ($status == 'capture') {
+			if ($type == 'credit_card') {
+				if ($fraud == 'challenge') {
 					$transaction->status = 'PENDING';
 				} else {
 					$transaction->status = 'SUCCESS';
 				}
 			}
-		}
-		else if($status == 'settlement') {
+		} else if ($status == 'settlement') {
 			$transaction->status = 'SUCCESS';
-		} else if($status == 'pending') {
+		} else if ($status == 'pending') {
 			$transaction->status = 'PENDING';
-		} else if($status == 'deny') {
+		} else if ($status == 'deny') {
 			$transaction->status = 'CANCELLED';
-		} else if($status == 'expire') {
+		} else if ($status == 'expire') {
 			$transaction->status = 'CANCELED';
 		} else if ($status == 'cencel') {
 			$transaction->status = 'CANCELED';
+		}
 	}
 }
